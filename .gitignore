@@ -169,7 +169,7 @@ cython_debug/
 examples/expected_results/registration/cycif/data/cycif_registrar.pickle
 examples/expected_results/registration/ihc/data/ihc_registrar.pickle
 examples/expected_results/registered_slides
-examples/expected_results/registered_slides/*.tiff
+!examples/expected_results/registered_slides/*/*.ome.tiff
 
 !tests/
 !tests/conftest.py
@@ -178,32 +178,17 @@ examples/expected_results/registered_slides/*.tiff
 .nox/
 
 docs/html/
-
 .DS_Store
-
 valis.zip
-
-
 Dockerfile_torch
-
-old_pyproject.toml
-
 Dockerfile_torch_alpine_fail
-
-_Dockerfile_old
-
 Dockerfile_torch_debian
-
+old_pyproject.toml
+_Dockerfile_old
 torch_pyproject.toml
-
 pip_poetry.lock
-
 pip_pyproject.toml
-
 docker_run_tests.sh
-
 docker_run_tests_by_line.sh
-
 git_poetry.lock
-
 git_pyproject.toml
