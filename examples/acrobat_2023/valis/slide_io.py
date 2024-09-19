@@ -1,6 +1,4 @@
-"""Methods and classes to read and write slides in the .ome.tiff format
-
-"""
+"""Methods and classes to read and write slides in the .ome.tiff format"""
 
 import os
 from skimage import io, transform
@@ -51,7 +49,7 @@ IMG_RDR = "skimage"
 PIXEL_UNIT = "px"
 """str: Physical unit when the unit can't be found in the metadata"""
 
-MICRON_UNIT = "\u00B5m"
+MICRON_UNIT = "\u00b5m"
 """str: Phyiscal unit for micron/micrometers"""
 
 ALL_OPENSLIDE_READABLE_FORMATS = [
@@ -848,11 +846,11 @@ class SlideReader(object):
         Returns
         -------
         res_xyu : tuple
-            Physical size per pixel and the unit, e.g. u'\u00B5m'
+            Physical size per pixel and the unit, e.g. u'\u00b5m'
 
         Notes
         -----
-            If physical unit is micron, it must be u'\u00B5m',
+            If physical unit is micron, it must be u'\u00b5m',
             not mu (u'\u03bcm') or u.
 
         """
@@ -1261,7 +1259,7 @@ class BioFormatsSlideReader(SlideReader):
         Returns
         -------
         res_xyu : tuple
-            Physical size per pixel and the unit, e.g. u'\u00B5m'
+            Physical size per pixel and the unit, e.g. u'\u00b5m'
 
         """
         current_series = rdr.getSeries()
@@ -1690,11 +1688,11 @@ class VipsSlideReader(SlideReader):
         Returns
         -------
         res_xyu : tuple
-            Physical size per pixel and the unit, e.g. u'\u00B5m'
+            Physical size per pixel and the unit, e.g. u'\u00b5m'
 
         Notes
         -----
-            If physical unit is micron, it must be u'\u00B5m',
+            If physical unit is micron, it must be u'\u00b5m',
             not mu (u'\u03bcm') or u.
 
         """
@@ -2228,11 +2226,11 @@ class CziJpgxrReader(SlideReader):
         Returns
         -------
         res_xyu : tuple
-            Physical size per pixel and the unit, e.g. u'\u00B5m'
+            Physical size per pixel and the unit, e.g. u'\u00b5m'
 
         Notes
         -----
-            If physical unit is micron, it must be u'\u00B5m',
+            If physical unit is micron, it must be u'\u00b5m',
             not mu (u'\u03bcm') or u.
 
         """
@@ -2245,7 +2243,7 @@ class CziJpgxrReader(SlideReader):
         physical_unit = physical_sizes[0]["DefaultUnitFormat"]
         physical_size_xyu[2] = physical_unit
 
-        if physical_unit == "\u00B5m":
+        if physical_unit == "\u00b5m":
             physical_scaling = 10**6
         elif physical_unit == "mm":
             physical_scaling = 10**3

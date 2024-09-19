@@ -1,6 +1,4 @@
-"""Classes and functions to perform serial non-rigid registration of a set of images
-
-"""
+"""Classes and functions to perform serial non-rigid registration of a set of images"""
 
 import numpy as np
 from skimage import io

@@ -1,6 +1,4 @@
-"""Classes and functions to perform serial non-rigid registration of a set of images
-
-"""
+"""Classes and functions to perform serial non-rigid registration of a set of images"""
 
 import numpy as np
 from skimage import io
@@ -870,9 +868,9 @@ class SerialNonRigidRegistrar(object):
             indv_img_params[non_rigid_registrars.NR_TILE_MOVING_P_KEY] = moving_dict[
                 non_rigid_registrars.NR_PROCESSING_CLASS_KEY
             ]
-            indv_img_params[
-                non_rigid_registrars.NR_TILE_MOVING_P_INIT_KW_KEY
-            ] = moving_dict[non_rigid_registrars.NR_PROCESSING_INIT_KW_KEY]
+            indv_img_params[non_rigid_registrars.NR_TILE_MOVING_P_INIT_KW_KEY] = (
+                moving_dict[non_rigid_registrars.NR_PROCESSING_INIT_KW_KEY]
+            )
             indv_img_params[non_rigid_registrars.NR_TILE_MOVING_P_KW_KEY] = moving_dict[
                 non_rigid_registrars.NR_PROCESSING_KW_KEY
             ]
@@ -881,9 +879,9 @@ class SerialNonRigidRegistrar(object):
             indv_img_params[non_rigid_registrars.NR_TILE_FIXED_P_KEY] = fixed_dict[
                 non_rigid_registrars.NR_PROCESSING_CLASS_KEY
             ]
-            indv_img_params[
-                non_rigid_registrars.NR_TILE_FIXED_P_INIT_KW_KEY
-            ] = fixed_dict[non_rigid_registrars.NR_PROCESSING_INIT_KW_KEY]
+            indv_img_params[non_rigid_registrars.NR_TILE_FIXED_P_INIT_KW_KEY] = (
+                fixed_dict[non_rigid_registrars.NR_PROCESSING_INIT_KW_KEY]
+            )
             indv_img_params[non_rigid_registrars.NR_TILE_FIXED_P_KW_KEY] = fixed_dict[
                 non_rigid_registrars.NR_PROCESSING_KW_KEY
             ]

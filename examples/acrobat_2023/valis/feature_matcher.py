@@ -1,5 +1,4 @@
-"""Functions and classes to match and filter image features
-"""
+"""Functions and classes to match and filter image features"""
 
 import numpy as np
 import cv2

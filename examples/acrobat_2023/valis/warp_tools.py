@@ -1543,9 +1543,10 @@ def get_warp_map(
         sy, sx = np.array(dst_shape_rc) / np.array(transformation_dst_shape_rc)
         S = transform.SimilarityTransform(scale=(sx, sy))
         src_xy_pos = S.inverse(scaled_xy)
-        grid_r, grid_c = src_xy_pos[:, 1].reshape(
-            transformation_dst_shape_rc
-        ), src_xy_pos[:, 0].reshape(transformation_dst_shape_rc)
+        grid_r, grid_c = (
+            src_xy_pos[:, 1].reshape(transformation_dst_shape_rc),
+            src_xy_pos[:, 0].reshape(transformation_dst_shape_rc),
+        )
 
     if dxdy is None:
         r_in_src = grid_r
@@ -3659,12 +3660,8 @@ class QuadUntangler(object):
                 ):  # evaluate the Jacobian matrix for every quad corner
                     J = jacobian(U, qc, quad)
                     det = np.linalg.det(J)
-                    chi = (
-                        det / 2 + np.sqrt(eps**2 + det**2) / 2
-                    )  # the penalty function
-                    chip = 0.5 + det / (
-                        2 * np.sqrt(eps**2 + det**2)
-                    )  # its derivative
+                    chi = det / 2 + np.sqrt(eps**2 + det**2) / 2  # the penalty function
+                    chip = 0.5 + det / (2 * np.sqrt(eps**2 + det**2))  # its derivative
 
                     f = np.trace(np.transpose(J) * J) / chi  # quad corner shape quality
                     F += f
@@ -3783,9 +3780,7 @@ class _TriUntangler(object):
             if det < 0:
                 return (det + np.sqrt(eps * eps + det * det) + 10**-6) * 0.5
             else:
-                return (
-                    0.5 * eps * eps / (np.sqrt(eps * eps + det * det) - det + 10**-6)
-                )
+                return 0.5 * eps * eps / (np.sqrt(eps * eps + det * det) - det + 10**-6)
 
         def chi_deriv(eps, det):
             return 0.5 + det / (2.0 * np.sqrt(eps * eps + det * det + 10**-6))

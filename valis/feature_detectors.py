@@ -433,7 +433,6 @@ class SkDaisy(FeatureDD):
 
 
 class SuperPointFD(FeatureDD):
-
     """SuperPoint `FeatureDD`
 
     Use SuperPoint to detect and describe features (`detect_and_compute`)

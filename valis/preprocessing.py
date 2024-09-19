@@ -1,6 +1,7 @@
 """
 Collection of pre-processing methods for aligning images
 """
+
 from scipy.interpolate import Akima1DInterpolator
 from skimage import exposure, filters, measure, morphology, restoration, util
 from skimage.feature import peak_local_max

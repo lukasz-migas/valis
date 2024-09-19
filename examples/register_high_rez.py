@@ -1,4 +1,4 @@
-""" Registration of whole slide images (WSI) using higher resolution images
+"""Registration of whole slide images (WSI) using higher resolution images
 
 This example shows how to register the slides using higher resolution images.
 An initial rigid transform is found using low resolition images, but the

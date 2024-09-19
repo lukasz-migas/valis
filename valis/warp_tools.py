@@ -1552,9 +1552,10 @@ def get_warp_map(
         sy, sx = np.array(dst_shape_rc) / np.array(transformation_dst_shape_rc)
         S = transform.SimilarityTransform(scale=(sx, sy))
         src_xy_pos = S.inverse(scaled_xy)
-        grid_r, grid_c = src_xy_pos[:, 1].reshape(
-            transformation_dst_shape_rc
-        ), src_xy_pos[:, 0].reshape(transformation_dst_shape_rc)
+        grid_r, grid_c = (
+            src_xy_pos[:, 1].reshape(transformation_dst_shape_rc),
+            src_xy_pos[:, 0].reshape(transformation_dst_shape_rc),
+        )
 
     if dxdy is None:
         r_in_src = grid_r

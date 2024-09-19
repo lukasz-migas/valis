@@ -3579,21 +3579,21 @@ class Valis(object):
             processing_cls, processing_kwargs = processor_dict[slide_obj.name]
             # Add registration parameters
             tiled_non_rigid_reg_params = {}
-            tiled_non_rigid_reg_params[
-                non_rigid_registrars.NR_CLS_KEY
-            ] = non_rigid_registrar_cls
+            tiled_non_rigid_reg_params[non_rigid_registrars.NR_CLS_KEY] = (
+                non_rigid_registrar_cls
+            )
             if self.norm_method is not None:
-                tiled_non_rigid_reg_params[
-                    non_rigid_registrars.NR_STATS_KEY
-                ] = self.target_processing_stats
+                tiled_non_rigid_reg_params[non_rigid_registrars.NR_STATS_KEY] = (
+                    self.target_processing_stats
+                )
             tiled_non_rigid_reg_params[non_rigid_registrars.NR_TILE_WH_KEY] = tile_wh
 
-            tiled_non_rigid_reg_params[
-                non_rigid_registrars.NR_PROCESSING_CLASS_KEY
-            ] = processing_cls
-            tiled_non_rigid_reg_params[
-                non_rigid_registrars.NR_PROCESSING_KW_KEY
-            ] = processing_kwargs
+            tiled_non_rigid_reg_params[non_rigid_registrars.NR_PROCESSING_CLASS_KEY] = (
+                processing_cls
+            )
+            tiled_non_rigid_reg_params[non_rigid_registrars.NR_PROCESSING_KW_KEY] = (
+                processing_kwargs
+            )
 
             img_specific_args[slide_obj.name] = tiled_non_rigid_reg_params
 
@@ -4004,9 +4004,9 @@ class Valis(object):
                 )
 
                 # Update args to use tiled non-rigid registrar
-                self.non_rigid_reg_kwargs[
-                    NON_RIGID_REG_CLASS_KEY
-                ] = non_rigid_registrar_cls
+                self.non_rigid_reg_kwargs[NON_RIGID_REG_CLASS_KEY] = (
+                    non_rigid_registrar_cls
+                )
 
         else:
             nr_reg_src = rigid_registrar
@@ -4217,7 +4217,7 @@ class Valis(object):
 
             "aligned_shape" is the shape of the registered full resolution slide
 
-            "physical_units" are the names of the pixels physcial unit, e.g. u'\u00B5m'
+            "physical_units" are the names of the pixels physcial unit, e.g. u'\u00b5m'
 
             "resolution" is the physical unit per pixel
 
@@ -4505,7 +4505,7 @@ class Valis(object):
 
             "aligned_shape" is the shape of the registered full resolution slide
 
-            "physical_units" are the names of the pixels physcial unit, e.g. u'\u00B5m'
+            "physical_units" are the names of the pixels physcial unit, e.g. u'\u00b5m'
 
             "resolution" is the physical unit per pixel
 

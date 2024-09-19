@@ -1,5 +1,4 @@
-"""Perform non-rigid registration
-"""
+"""Perform non-rigid registration"""
 
 import os
 import pathlib

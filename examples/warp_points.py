@@ -32,7 +32,6 @@ image's dimensions.
 
 """
 
-
 import os
 import pickle
 import numpy as np

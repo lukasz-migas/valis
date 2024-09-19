@@ -1,6 +1,5 @@
-"""Various functions used to visualize registration results
+"""Various functions used to visualize registration results"""
 
-"""
 import colour
 import matplotlib.pyplot as plt
 from skimage import draw, color, exposure, transform

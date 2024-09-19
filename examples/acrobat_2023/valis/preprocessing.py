@@ -1,6 +1,7 @@
 """
 Collection of pre-processing methods for aligning images
 """
+
 from scipy.interpolate import Akima1DInterpolator
 from skimage import exposure, filters, measure, morphology, restoration
 from sklearn.cluster import estimate_bandwidth, MiniBatchKMeans, MeanShift

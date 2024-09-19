@@ -1,4 +1,4 @@
-""" Registration of whole slide images (WSI)
+"""Registration of whole slide images (WSI)
 
 This example shows how to register, warp, and save a collection
 of whole slide images (WSI) using the default parameters.

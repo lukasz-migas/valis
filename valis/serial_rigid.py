@@ -1,6 +1,5 @@
-"""Classes and functions to perform serial rigid registration of a set of images
+"""Classes and functions to perform serial rigid registration of a set of images"""
 
-"""
 import numpy as np
 import os
 import pickle
@@ -1226,12 +1225,12 @@ class SerialRigidRegistrar(object):
                 prev_img_obj.match_dict[img_obj] = reflected_matches21[best_idx]
 
                 if keep_unfiltered:
-                    img_obj.unfiltered_match_dict[
-                        prev_img_obj
-                    ] = unfiltered_reflected_matches12[best_idx]
-                    prev_img_obj.unfiltered_match_dict[
-                        img_obj
-                    ] = unfiltered_reflected_matches21[best_idx]
+                    img_obj.unfiltered_match_dict[prev_img_obj] = (
+                        unfiltered_reflected_matches12[best_idx]
+                    )
+                    prev_img_obj.unfiltered_match_dict[img_obj] = (
+                        unfiltered_reflected_matches21[best_idx]
+                    )
 
             if qt_emitter is not None:
                 qt_emitter.emit(1)
