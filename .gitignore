@@ -169,10 +169,11 @@ cython_debug/
 examples/expected_results/registration/cycif/data/cycif_registrar.pickle
 examples/expected_results/registration/ihc/data/ihc_registrar.pickle
 examples/expected_results/registered_slides
+examples/expected_results/registered_slides/ihc/*.ome.tiff
 
 tests/
-!tests/conftest.py
-!tests/test_examples.py
+tests/conftest.py
+tests/test_examples.py
 
 .nox/
 
