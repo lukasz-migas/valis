@@ -1,9 +1,13 @@
 import sys
+
 # print(f"valis/tests/tmp{sys.version_info.major}{sys.version_info.minor}/micro_rigid")
 import platform
+
 print(platform.python_version())
 
 from valis import slide_io
+
+
 def pytest_sessionstart(session):
     """
     Called after the Session object has been created and

@@ -166,77 +166,107 @@ class FeatureDD(object):
             kp, desc = self.kp_descriptor.detectAndCompute(image, mask=mask)
 
         if desc.shape[0] > MAX_FEATURES:
-
             kp, desc = filter_features(kp, desc)
 
         kp_pos_xy = np.array([k.pt for k in kp])
 
         return kp_pos_xy, desc
 
+
 # Thin wrappers around OpenCV detectors and descriptors #
 
 
 class OrbFD(FeatureDD):
     """Uses ORB for feature detection and description"""
+
     def __init__(self, kp_descriptor=cv2.ORB_create(MAX_FEATURES)):
         super().__init__(kp_descriptor=kp_descriptor)
 
 
 class BriskFD(FeatureDD):
     """Uses BRISK for feature detection and description"""
+
     def __init__(self, kp_descriptor=cv2.BRISK_create()):
         super().__init__(kp_descriptor=kp_descriptor)
 
 
 class KazeFD(FeatureDD):
     """Uses KAZE for feature detection and description"""
+
     def __init__(self, kp_descriptor=cv2.KAZE_create(extended=False)):
         super().__init__(kp_descriptor=kp_descriptor)
 
 
 class AkazeFD(FeatureDD):
     """Uses AKAZE for feature detection and description"""
+
     def __init__(self, kp_descriptor=cv2.AKAZE_create()):
         super().__init__(kp_descriptor=kp_descriptor)
 
 
 class DaisyFD(FeatureDD):
     """Uses BRISK for feature detection and DAISY for feature description"""
-    def __init__(self, kp_detector=DEFAULT_FEATURE_DETECTOR,
-                 kp_descriptor=cv2.xfeatures2d.DAISY_create()):
+
+    def __init__(
+        self,
+        kp_detector=DEFAULT_FEATURE_DETECTOR,
+        kp_descriptor=cv2.xfeatures2d.DAISY_create(),
+    ):
         super().__init__(kp_detector=kp_detector, kp_descriptor=kp_descriptor)
 
 
 class LatchFD(FeatureDD):
     """Uses BRISK for feature detection and LATCH for feature description"""
-    def __init__(self, kp_detector=DEFAULT_FEATURE_DETECTOR,
-                 kp_descriptor=cv2.xfeatures2d.LATCH_create(rotationInvariance=True)):
+
+    def __init__(
+        self,
+        kp_detector=DEFAULT_FEATURE_DETECTOR,
+        kp_descriptor=cv2.xfeatures2d.LATCH_create(rotationInvariance=True),
+    ):
         super().__init__(kp_detector=kp_detector, kp_descriptor=kp_descriptor)
 
 
 class BoostFD(FeatureDD):
     """Uses BRISK for feature detection and Boost for feature description"""
-    def __init__(self, kp_detector=DEFAULT_FEATURE_DETECTOR,
-                 kp_descriptor=cv2.xfeatures2d.BoostDesc_create()):
+
+    def __init__(
+        self,
+        kp_detector=DEFAULT_FEATURE_DETECTOR,
+        kp_descriptor=cv2.xfeatures2d.BoostDesc_create(),
+    ):
         super().__init__(kp_detector=kp_detector, kp_descriptor=kp_descriptor)
 
 
 class VggFD(FeatureDD):
     """Uses BRISK for feature detection and VGG for feature description"""
-    def __init__(self,  kp_detector=DEFAULT_FEATURE_DETECTOR,
-                 kp_descriptor=cv2.xfeatures2d.VGG_create(scale_factor=5.0)):
+
+    def __init__(
+        self,
+        kp_detector=DEFAULT_FEATURE_DETECTOR,
+        kp_descriptor=cv2.xfeatures2d.VGG_create(scale_factor=5.0),
+    ):
         super().__init__(kp_detector=kp_detector, kp_descriptor=kp_descriptor)
 
 
 class OrbVggFD(FeatureDD):
     """Uses ORB for feature detection and VGG for feature description"""
-    def __init__(self,  kp_detector=cv2.ORB_create(nfeatures=MAX_FEATURES, fastThreshold=0), kp_descriptor=cv2.xfeatures2d.VGG_create(scale_factor=0.75)):
+
+    def __init__(
+        self,
+        kp_detector=cv2.ORB_create(nfeatures=MAX_FEATURES, fastThreshold=0),
+        kp_descriptor=cv2.xfeatures2d.VGG_create(scale_factor=0.75),
+    ):
         super().__init__(kp_detector=kp_detector, kp_descriptor=kp_descriptor)
 
 
 class SKOrbVggFD(FeatureDD):
     """Uses ORB for feature detection and VGG for feature description"""
-    def __init__(self,  kp_detector=cv2.ORB_create(nfeatures=MAX_FEATURES, fastThreshold=0), kp_descriptor=cv2.xfeatures2d.VGG_create(scale_factor=0.75)):
+
+    def __init__(
+        self,
+        kp_detector=cv2.ORB_create(nfeatures=MAX_FEATURES, fastThreshold=0),
+        kp_descriptor=cv2.xfeatures2d.VGG_create(scale_factor=0.75),
+    ):
         super().__init__(kp_detector=kp_detector, kp_descriptor=kp_descriptor)
 
 
@@ -262,6 +292,7 @@ class FeatureDetector(object):
     Required methods are: detect
 
     """
+
     def __init__(self):
         self.detector = None
 
@@ -280,6 +311,7 @@ class FeatureDetector(object):
 
 # Example of how to create a feature detector using OpenCV + skimage #
 
+
 class SkCensureDetector(FeatureDetector):
     """A CENSURE feature detector from scikit image
 
@@ -287,6 +319,7 @@ class SkCensureDetector(FeatureDetector):
     OpenCV feature descriptor
 
     """
+
     def __init__(self, **kwargs):
         super().__init__()
         self.kp_detector = feature.CENSURE(**kwargs)
@@ -317,22 +350,32 @@ class SkCensureDetector(FeatureDetector):
         kp_scales = self.kp_detector.scales
         unique_scales = np.unique(kp_scales)
         scale_diff = np.min(np.diff(unique_scales))
-        kp_ocatves = np.digitize(kp_scales, np.linspace(kp_scales.min(), kp_scales.max()+scale_diff, len(unique_scales)))
-        cv_kp = [cv2.KeyPoint(x=self.kp_detector.keypoints[i][1],
-                              y=self.kp_detector.keypoints[i][0],
-                              size=int(base_patch_size*kp_ocatves[i]),
-                              octave=kp_ocatves[i]
-                          )
-                    for i in range(self.kp_detector.keypoints.shape[0])
-                    ]
+        kp_ocatves = np.digitize(
+            kp_scales,
+            np.linspace(
+                kp_scales.min(), kp_scales.max() + scale_diff, len(unique_scales)
+            ),
+        )
+        cv_kp = [
+            cv2.KeyPoint(
+                x=self.kp_detector.keypoints[i][1],
+                y=self.kp_detector.keypoints[i][0],
+                size=int(base_patch_size * kp_ocatves[i]),
+                octave=kp_ocatves[i],
+            )
+            for i in range(self.kp_detector.keypoints.shape[0])
+        ]
         return cv_kp
 
 
 class CensureVggFD(FeatureDD):
-    def __init__(self, kp_detector=SkCensureDetector(mode="Octagon",
-                 max_scale=8, non_max_threshold=0.02),
-                 kp_descriptor=cv2.xfeatures2d.VGG_create(scale_factor=6.25)):
-
+    def __init__(
+        self,
+        kp_detector=SkCensureDetector(
+            mode="Octagon", max_scale=8, non_max_threshold=0.02
+        ),
+        kp_descriptor=cv2.xfeatures2d.VGG_create(scale_factor=6.25),
+    ):
         super().__init__(kp_detector=kp_detector, kp_descriptor=kp_descriptor)
         self.kp_descriptor_name = self.__class__.__name__
         self.kp_detector_name = self.__class__.__name__
@@ -346,16 +389,17 @@ class SkDaisy(FeatureDD):
         https://scikit-image.org/docs/dev/auto_examples/features_detection/plot_daisy.html#sphx-glr-auto-examples-features-detection-plot-daisy-py
 
         """
-        self.dasiy_arg_dict = {"step": 4,
-                               "radius": 15,
-                               "rings": 3,
-                               "histograms": 8,
-                               "orientations": 8,
-                               "normalization": "l1",
-                               "sigmas": None,
-                               "ring_radii": None,
-                               "visualize": False
-                               }
+        self.dasiy_arg_dict = {
+            "step": 4,
+            "radius": 15,
+            "rings": 3,
+            "histograms": 8,
+            "orientations": 8,
+            "normalization": "l1",
+            "sigmas": None,
+            "ring_radii": None,
+            "visualize": False,
+        }
 
         if dasiy_arg_dict is not None:
             self.dasiy_arg_dict.update(dasiy_arg_dict)
@@ -387,6 +431,7 @@ class SkDaisy(FeatureDD):
 
         return kp_xy, desc2d
 
+
 class SuperPointFD(FeatureDD):
 
     """SuperPoint `FeatureDD`
@@ -402,8 +447,14 @@ class SuperPointFD(FeatureDD):
 
     """
 
-    def __init__(self, keypoint_threshold=0.005, nms_radius=4, force_cpu=False, kp_descriptor=None, kp_detector=None):
-
+    def __init__(
+        self,
+        keypoint_threshold=0.005,
+        nms_radius=4,
+        force_cpu=False,
+        kp_descriptor=None,
+        kp_detector=None,
+    ):
         """
         Parameters
         ----------
@@ -423,7 +474,7 @@ class SuperPointFD(FeatureDD):
         super().__init__(kp_detector=kp_detector, kp_descriptor=kp_descriptor)
         self.keypoint_threshold = keypoint_threshold
         self.nms_radius = nms_radius
-        self.device = 'cuda' if torch.cuda.is_available() and not force_cpu else "cpu"
+        self.device = "cuda" if torch.cuda.is_available() and not force_cpu else "cpu"
 
         if kp_detector is None:
             self.kp_detector_name = "SuperPoint"
@@ -438,12 +489,13 @@ class SuperPointFD(FeatureDD):
             self.kp_descriptor_name = kp_descriptor.__class__.__name__
 
         self.config = {
-            'superpoint': {
-                'nms_radius': self.nms_radius,
-                'keypoint_threshold': self.keypoint_threshold,
+            "superpoint": {
+                "nms_radius": self.nms_radius,
+                "keypoint_threshold": self.keypoint_threshold,
                 "device": self.device,
-                'max_keypoints': MAX_FEATURES
-            }}
+                "max_keypoints": MAX_FEATURES,
+            }
+        }
 
     def frame2tensor(self, img):
         float_img = exposure.rescale_intensity(img, out_range=np.float32)
@@ -461,7 +513,6 @@ class SuperPointFD(FeatureDD):
         return kp_pos_xy
 
     def compute(self, img, kp_pos_xy):
-
         if self.kp_descriptor is None:
             sp = superpoint.SuperPoint(self.config["superpoint"])
 
@@ -481,8 +532,12 @@ class SuperPointFD(FeatureDD):
             descriptors = sp.convDb(cDa)
             descriptors = torch.nn.functional.normalize(descriptors, p=2, dim=1)
 
-            descriptors = [superpoint.sample_descriptors(k[None], d[None], 8)[0]
-                    for k, d in zip([torch.from_numpy(kp_pos_xy.astype(np.float32))], descriptors)]
+            descriptors = [
+                superpoint.sample_descriptors(k[None], d[None], 8)[0]
+                for k, d in zip(
+                    [torch.from_numpy(kp_pos_xy.astype(np.float32))], descriptors
+                )
+            ]
 
             descriptors = descriptors[0].detach().numpy().T
         else:
@@ -497,11 +552,11 @@ class SuperPointFD(FeatureDD):
 
     def detect_and_compute_sg(self, img):
         inp = self.frame2tensor(img)
-        superpoint_obj = superpoint.SuperPoint(self.config.get('superpoint', {}))
-        pred = superpoint_obj({'image': inp})
-        pred = {**pred, **{k+'0': v for k, v in pred.items()}}
-        kp_pos_xy = pred['keypoints'][0].detach().numpy()
-        desc = pred['descriptors'][0].detach().numpy().T
+        superpoint_obj = superpoint.SuperPoint(self.config.get("superpoint", {}))
+        pred = superpoint_obj({"image": inp})
+        pred = {**pred, **{k + "0": v for k, v in pred.items()}}
+        kp_pos_xy = pred["keypoints"][0].detach().numpy()
+        desc = pred["descriptors"][0].detach().numpy().T
 
         return kp_pos_xy, desc
 
